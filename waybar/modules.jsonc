@@ -88,6 +88,7 @@
         "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
+        "interval": 5,
         "format": "{usage}% ",
         "tooltip": false,
         "on-click": "kitty htop"
@@ -96,7 +97,10 @@
         "format": "{}% "
     },
     "disk": {
-        "format": "{}% "
+        "interval": 30,
+        "format": "{percentage_used}% U ",
+        // "format": "{used}/{total} ",
+        "path": "/"
     },
     "temperature": {
         "thermal-zone": 2,
