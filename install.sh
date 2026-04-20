@@ -1,8 +1,9 @@
 #!/bin/bash
 
-ln -s ./waybar ~/.config/waybar
-ln -s ./hypr ~/.config/hypr
-ln -s ./starship.toml ~/.config/starship.toml
+ln -s $PWD/waybar ~/.config/waybar
+ln -s $PWD/hypr ~/.config/hypr
+ln -s $PWD/starship.toml ~/.config/starship.toml
+ln -s $PWD/fastfetch ~/.config/fastfetch
 
 # install fonts
 # yay -S
