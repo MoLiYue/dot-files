@@ -1,0 +1,27 @@
+# 显示模式
+show=drun
+
+# 模糊搜索
+matching=fuzzy
+
+# UI 行为
+allow_images=true
+prompt=Run:
+
+# 窗口布局
+width=600
+height=400
+location=center
+
+# 列表
+lines=10
+columns=1
+
+# 输入体验
+hide_scroll=true
+no_actions=true
+term=kitty
+
+# 性能
+cache_file=/dev/null
+

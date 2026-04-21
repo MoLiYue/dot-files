@@ -1,0 +1,56 @@
+/* Catppuccin Mocha */
+
+* {
+    font-family: "FiraCode Nerd Font", monospace;
+    font-size: 14px;
+}
+
+/* 整体窗口 */
+window {
+    background-color: rgba(30, 30, 46, 0.92); /* base */
+    border-radius: 16px;
+    border: 2px solid #89b4fa; /* blue */
+}
+
+/* 外边距 */
+#outer-box {
+    margin: 12px;
+}
+
+/* 输入框 */
+#input {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 12px;
+    border: none;
+
+    background-color: #313244; /* surface0 */
+    color: #cdd6f4; /* text */
+}
+
+/* 条目 */
+#entry {
+    padding: 8px;
+    border-radius: 10px;
+}
+
+/* 选中项 */
+#entry:selected {
+    background-color: #89b4fa; /* blue */
+    color: #1e1e2e; /* base */
+}
+
+/* 图标 */
+#img {
+    margin-right: 8px;
+}
+
+/* 文本 */
+#text {
+    color: #cdd6f4;
+}
+
+/* 滚动（隐藏） */
+#scroll {
+    margin: 0;
+}
