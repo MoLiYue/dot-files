@@ -4,3 +4,9 @@
 [submodule "kitty"]
 	path = kitty
 	url = https://github.com/MoLiYue/kitty.git
+[submodule "tmux"]
+	path = tmux
+	url = https://github.com/MoLiYue/mytmux.git
+[submodule "zshrc"]
+	path = zshrc
+	url = https://github.com/MoLiYue/my-zshrc.git
