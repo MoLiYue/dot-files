@@ -1,0 +1,6 @@
+[submodule "nvim"]
+	path = nvim
+	url = https://github.com/MoLiYue/my-lazyvim.git
+[submodule "kitty"]
+	path = kitty
+	url = https://github.com/MoLiYue/kitty.git
