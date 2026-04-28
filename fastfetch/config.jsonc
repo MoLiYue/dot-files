@@ -1,17 +1,18 @@
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
 
-"logo": {
-  "type": "builtin",
-  "source": "auto",
-  "padding": {
-    "right": 3
+  "logo": {
+    "type": "builtin",
+    "source": "auto",
+    "padding": {
+      "right": 3
+    },
+    "color": {
+      "1": "bright_magenta",
+      "2": "bright_blue"
+    }
   },
-  "color": {
-    "1": "bright_magenta",
-    "2": "bright_blue"
-  }
-},
+
   "display": {
     "separator": "  ",
     "color": {
@@ -21,62 +22,57 @@
     },
     "brightColor": true,
     "key": {
-      "width": 12
+      "width": 14
     }
   },
 
   "modules": [
     "break",
-    {
-      "type": "title"
-    },
+    { "type": "title" },
     "break",
 
-    {
-      "type": "os",
-      "key": "󰍹 OS"
-    },
-    {
-      "type": "kernel",
-      "key": "󰒋 Kernel"
-    },
-    {
-      "type": "uptime",
-      "key": "󰅐 Uptime"
-    },
+    { "type": "os", "key": "󰍹 OS" },
+    { "type": "host", "key": "󰌢 Host" },
+    { "type": "kernel", "key": "󰒋 Kernel" },
+    { "type": "uptime", "key": "󰅐 Uptime" },
+    { "type": "packages", "key": "󰏖 Packages" },
+    { "type": "bootmgr", "key": "󰒓 Bootmgr" },
+    { "type": "locale", "key": "󰗊 Locale" },
 
     "break",
 
-    {
-      "type": "shell",
-      "key": " Shell"
-    },
-    {
-      "type": "terminal",
-      "key": "󰞷 Terminal"
-    },
+    { "type": "de", "key": "󰧨 DE" },
+    { "type": "wm", "key": "󱂬 WM" },
+    { "type": "wmtheme", "key": "󰉼 WM Theme" },
+    { "type": "theme", "key": "󰉼 GTK Theme" },
+    { "type": "icons", "key": "󰀻 Icons" },
+    { "type": "font", "key": "󰛖 Font" },
+    { "type": "cursor", "key": "󰇀 Cursor" },
 
     "break",
 
-    {
-      "type": "cpu",
-      "key": "󰻠 CPU"
-    },
-    {
-      "type": "gpu",
-      "key": "󰢮 GPU"
-    },
-    {
-      "type": "memory",
-      "key": "󰍛 Memory"
-    },
+    { "type": "shell", "key": " Shell" },
+    { "type": "terminal", "key": "󰞷 Terminal" },
+    { "type": "terminalfont", "key": "󰛖 Term Font" },
 
     "break",
 
-    {
-      "type": "disk",
-      "key": "󰋊 Disk"
-    },
+    { "type": "cpu", "key": "󰻠 CPU" },
+    { "type": "gpu", "key": "󰢮 GPU" },
+    { "type": "memory", "key": "󰍛 Memory" },
+    { "type": "swap", "key": "󰾴 Swap" },
+    { "type": "disk", "key": "󰋊 Disk" },
+
+    "break",
+
+    { "type": "display", "key": "󰍹 Display" },
+    { "type": "sound", "key": "󰓃 Sound" },
+    { "type": "battery", "key": "󰁹 Battery" },
+    { "type": "poweradapter", "key": "󰚥 Power" },
+
+    "break",
+
+    { "type": "localip", "key": "󰩟 Local IP" },
 
     "break",
 
