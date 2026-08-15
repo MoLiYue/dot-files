@@ -1,0 +1,2 @@
+-- Disabled rule retained from the previous configuration:
+-- hl.workspace_rule({ workspace = "1", on_created_empty = "[float] zen-browser" })

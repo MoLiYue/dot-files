@@ -1,0 +1,6 @@
+hl.on("hyprland.start", function()
+    hl.exec_cmd("fcitx5 -d --replace")
+    hl.exec_cmd("fcitx5-remote -r")
+    hl.exec_cmd("~/.config/hypr/xdg-desktop-portal-hyprland.sh")
+    hl.exec_cmd("~/.config/hypr/waybar.sh")
+end)
