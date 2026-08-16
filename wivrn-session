@@ -1,0 +1,213 @@
+#!/usr/bin/env bash
+
+set -u
+
+# ============================================================
+# WiVRn VR session launcher
+#
+# WiVRn connected:
+#   - OscAvMgr
+#   - WayVR
+#   - VRChat
+#
+# WiVRn disconnected for DISCONNECT_GRACE seconds:
+#   - close processes started by this script
+# ============================================================
+
+DISCONNECT_GRACE=1200
+CHECK_INTERVAL=2
+INITIAL_CONNECT_WAIT=20
+
+OSC_PID=""
+WAYVR_PID=""
+
+STARTED_OSC=0
+STARTED_WAYVR=0
+STARTED_VRC=0
+
+log() {
+    printf '[WiVRn Session] %s\n' "$*"
+}
+
+# ------------------------------------------------------------
+# 检测 WiVRn 是否处于连接状态
+#
+# WiVRn 在头显建立连接时创建虚拟 speaker。
+# 你当前系统中就是：
+#
+#   74. WiVRn
+#
+# 所以用它作为连接状态标志。
+# ------------------------------------------------------------
+wivrn_connected() {
+    wpctl status 2>/dev/null |
+        grep -qE '^[[:space:]│├└*]*[0-9]+\.[[:space:]]+WiVRn[[:space:]]'
+}
+
+# ------------------------------------------------------------
+# VRChat 是否已经运行
+# ------------------------------------------------------------
+vrc_running() {
+    pgrep -u "$UID" -f '[V]RChat\.exe' >/dev/null 2>&1
+}
+
+# ------------------------------------------------------------
+# 清理
+# ------------------------------------------------------------
+cleanup() {
+    log "Cleaning up..."
+
+    # 只在 VRChat 是本脚本启动的情况下关闭它
+    if (( STARTED_VRC )); then
+        if vrc_running; then
+            log "Stopping VRChat..."
+            mapfile -t VRC_PIDS < <(
+                pgrep -u "$UID" -f '[V]RChat\.exe' || true
+            )
+
+            if ((${#VRC_PIDS[@]})); then
+                kill -TERM "${VRC_PIDS[@]}" 2>/dev/null || true
+            fi
+        fi
+    fi
+
+    # WayVR
+    if (( STARTED_WAYVR )) && [[ -n "$WAYVR_PID" ]]; then
+        if kill -0 "$WAYVR_PID" 2>/dev/null; then
+            log "Stopping WayVR..."
+            kill -TERM "$WAYVR_PID" 2>/dev/null || true
+        fi
+    fi
+
+    # OscAvMgr
+    if (( STARTED_OSC )) && [[ -n "$OSC_PID" ]]; then
+        if kill -0 "$OSC_PID" 2>/dev/null; then
+            log "Stopping OscAvMgr..."
+            kill -TERM "$OSC_PID" 2>/dev/null || true
+        fi
+    fi
+
+    log "Session cleanup complete."
+}
+
+trap cleanup EXIT INT TERM HUP
+
+# ------------------------------------------------------------
+# 检查命令
+# ------------------------------------------------------------
+for cmd in wpctl oscavmgr wayvr steam; do
+    if ! command -v "$cmd" >/dev/null 2>&1; then
+        log "ERROR: command not found: $cmd"
+        exit 1
+    fi
+done
+
+# ------------------------------------------------------------
+# 等 WiVRn audio sink 出现
+#
+# application 本来就是 WiVRn 连接后启动的，
+# 但给 PipeWire 一点初始化时间。
+# ------------------------------------------------------------
+log "Waiting for WiVRn connection..."
+
+elapsed=0
+
+while ! wivrn_connected; do
+    if (( elapsed >= INITIAL_CONNECT_WAIT )); then
+        log "WiVRn audio device did not appear after ${INITIAL_CONNECT_WAIT}s."
+        log "Continuing anyway."
+        break
+    fi
+
+    sleep 1
+    ((elapsed += 1))
+done
+
+# ------------------------------------------------------------
+# OscAvMgr
+# ------------------------------------------------------------
+if pgrep -x oscavmgr >/dev/null 2>&1; then
+    log "OscAvMgr is already running, leaving it alone."
+else
+    log "Starting OscAvMgr..."
+    oscavmgr openxr &
+    OSC_PID=$!
+    STARTED_OSC=1
+fi
+
+# ------------------------------------------------------------
+# WayVR
+# ------------------------------------------------------------
+if pgrep -x wayvr >/dev/null 2>&1; then
+    log "WayVR is already running, leaving it alone."
+else
+    log "Starting WayVR..."
+    wayvr &
+    WAYVR_PID=$!
+    STARTED_WAYVR=1
+fi
+
+# ------------------------------------------------------------
+# VRChat
+# ------------------------------------------------------------
+if vrc_running; then
+    log "VRChat is already running, leaving it alone."
+else
+    log "Starting VRChat..."
+    steam "steam://launch/438100/VR" >/dev/null 2>&1 &
+    STARTED_VRC=1
+fi
+
+log "VR session started."
+log "Disconnect grace period: ${DISCONNECT_GRACE}s"
+
+# ------------------------------------------------------------
+# 监控 WiVRn
+#
+# 连续断开 30 秒才认为真正断开。
+#
+# 例如：
+#
+#   摘头显 5 秒
+#      ↓
+#   sink 短暂消失
+#      ↓
+#   又重新出现
+#      ↓
+#   不关闭游戏
+#
+# 真 Disconnect / Quest sleep / WiVRn 退出
+#      ↓
+#   连续 30 秒没有 WiVRn sink
+#      ↓
+#   cleanup
+# ------------------------------------------------------------
+disconnect_seconds=0
+
+while true; do
+
+    if wivrn_connected; then
+
+        if (( disconnect_seconds > 0 )); then
+            log "WiVRn connection restored."
+        fi
+
+        disconnect_seconds=0
+
+    else
+
+        ((disconnect_seconds += CHECK_INTERVAL))
+
+        if (( disconnect_seconds == CHECK_INTERVAL )); then
+            log "WiVRn connection lost, waiting for reconnect..."
+        fi
+
+        if (( disconnect_seconds >= DISCONNECT_GRACE )); then
+            log "WiVRn disconnected for ${DISCONNECT_GRACE}s."
+            break
+        fi
+
+    fi
+
+    sleep "$CHECK_INTERVAL"
+done
