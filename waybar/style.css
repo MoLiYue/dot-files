@@ -110,10 +110,45 @@ button:hover {
  * Hardware Group
  * ----------------------------------------------------- */
 
-#memory,#disk,#cpu {
+#memory,#custom-disk,#cpu,#custom-gpu {
     margin:0px;
-    padding: 0 10px;
+    padding: 0 6px;
     color:@text;
+}
+
+#cpu,
+#memory,
+#custom-gpu {
+    margin: 5px 1px 6px 1px;
+    border-radius: 15px;
+    color: @base;
+}
+
+#custom-disk {
+    background-color: transparent;
+    border-radius: 0;
+    color: @peach;
+}
+
+#cpu,
+#memory {
+    background-color: @maroon;
+}
+
+#cpu {
+    margin-right: 0;
+    padding-right: 4px;
+    border-radius: 15px 0 0 15px;
+}
+
+#memory {
+    margin-left: 0;
+    padding-left: 4px;
+    border-radius: 0 15px 15px 0;
+}
+
+#custom-gpu {
+    background-color: @mauve;
 }
 
 /* Common config */
@@ -223,7 +258,7 @@ button:hover {
 }
 
 #power-profiles-daemon.balanced {
-    background-color: @blue;
+    background-color: @flamingo;
     color: @base;
 }
 
@@ -292,7 +327,7 @@ label:focus {
 }
 
 #tray {
-    background-color: @blue;
+    background-color: @rosewater;
 }
 
 #tray > .passive {

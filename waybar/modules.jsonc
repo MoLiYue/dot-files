@@ -4,26 +4,38 @@
         "disable-scroll": true,
         "all-outputs": true,
         "warp-on-scroll": false,
-        "format": "",
-        // "format": "{icon}",
-        // "format-icons": {
-        //     "1": "",
-        //     "2": "",
-        //     "3": "",
-        //     "4": "",
-        //     "5": "",
-        //     "urgent": "",
-        //     "focused": "",
-        //     "default": ""
-        // }
+        "move-to-monitor": false,
+        "sort-by": "number",
+        "persistent-workspaces": {
+            "*": [1, 2, 3, 4, 5, 6]
+        },
+        "format": "{icon}",
+        "format-icons": {
+            "1": "",
+            "2": "󰈹",
+            "3": "",
+            "4": "󰨞",
+            "5": "",
+            "6": "",
+            "urgent": "",
+            "default": ""
+        }
+    },
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 16,
+        "tooltip-format": "{title}",
+        "on-click": "activate",
+        "on-click-middle": "close"
     },
     // Group Hardware
     "group/hardware": {
         "orientation": "horizontal",
         "modules": [
-            "disk",
+            "custom/disk",
             "cpu",
-            "memory"
+            "memory",
+            "custom/gpu"
         ]
     },
     "keyboard-state": {
@@ -96,11 +108,18 @@
     "memory": {
         "format": "{}% "
     },
-    "disk": {
+    "custom/gpu": {
+        "exec": "~/.config/waybar/scripts/gpu-stats.sh summary",
+        "return-type": "json",
+        "interval": 2,
+        "format": "{}",
+        "on-click": "kitty nvtop"
+    },
+    "custom/disk": {
+        "exec": "~/.config/waybar/scripts/disk-stats.sh",
+        "return-type": "json",
         "interval": 30,
-        "format": "{percentage_used}% U ",
-        // "format": "{used}/{total} ",
-        "path": "/"
+        "format": "{}"
     },
     "temperature": {
         "thermal-zone": 2,
