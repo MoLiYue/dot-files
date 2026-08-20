@@ -13,6 +13,3 @@ configuration {
 }
 
 @theme "catppuccin-mocha"
-
-/* Import matugen-generated colors (overrides theme defaults when available) */
-@import "colors"

@@ -1,98 +1,125 @@
 #!/usr/bin/env bash
-# wallpaper.sh — Set wallpaper via awww and generate Material You colors via matugen.
-# Usage:
-#   wallpaper.sh              — start daemon + apply saved/default wallpaper
-#   wallpaper.sh <path>       — set a specific wallpaper + regenerate colors
-#   wallpaper.sh random       — pick a random wallpaper
+# Set a wallpaper and optionally activate a Matugen-generated color theme.
 
 set -euo pipefail
 
+CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}/mlyue-theme"
+WALLPAPER_THEME="$CACHE_HOME/wallpaper"
 WALLPAPER_DIR="${WALLPAPER_DIR:-$HOME/Pictures/wallpapers}"
-STATE_FILE="$HOME/.config/current-wallpaper"
+WALLPAPER_STATE="$CONFIG_HOME/current-wallpaper"
+THEME_STATE="$CONFIG_HOME/current-theme"
+THEME_LINK="$CONFIG_HOME/theme-current"
 MATUGEN_MODE="${MATUGEN_MODE:-dark}"
+MATUGEN_SOURCE_COLOR_INDEX="${MATUGEN_SOURCE_COLOR_INDEX:-0}"
+GENERATE_THEME=true
+QUIET=false
 
-# Transition settings
-TRANSITION_TYPE="fade"
-TRANSITION_DURATION=1
-TRANSITION_FPS=60
-TRANSITION_STEP=2
+activate_theme_dir() {
+    local required
+    for required in waybar.css rofi.rasi kitty.conf swaync.css hyprland.lua; do
+        [[ -s "$WALLPAPER_THEME/$required" ]] || {
+            echo "Matugen output missing: $WALLPAPER_THEME/$required" >&2
+            return 1
+        }
+    done
 
-# Start awww daemon if not running
-if ! pgrep -x awww-daemon >/dev/null 2>&1; then
-    awww-daemon &
-    sleep 0.5
-fi
+    local link_tmp="${THEME_LINK}.tmp.$$"
+    rm -f -- "$link_tmp"
+    ln -s -- "$WALLPAPER_THEME" "$link_tmp"
+    mv -fT -- "$link_tmp" "$THEME_LINK"
+}
 
-apply_wallpaper() {
-    local img="$1"
-    if [[ ! -f "$img" ]]; then
-        echo "Wallpaper not found: $img" >&2
-        return 1
-    fi
-
-    # Set wallpaper with transition
-    awww img "$img" \
-        --transition-type "$TRANSITION_TYPE" \
-        --transition-duration "$TRANSITION_DURATION" \
-        --transition-fps "$TRANSITION_FPS" \
-        --transition-step "$TRANSITION_STEP"
-
-    # Generate Material You colors from wallpaper
-    matugen image "$img" -m "$MATUGEN_MODE" 2>/dev/null || true
-
-    # Reload SwayNC styles
+reload_apps() {
+    killall -SIGUSR2 waybar 2>/dev/null || true
+    pkill -USR1 kitty 2>/dev/null || true
     swaync-client --reload-css 2>/dev/null || true
+}
 
-    # Update Hyprland border colors from generated lua
-    if [[ -f "$HOME/.config/hypr/matugen-colors.lua" ]]; then
-        # Source the colors and apply border
-        local primary
-        primary=$(grep 'primary =' "$HOME/.config/hypr/matugen-colors.lua" | head -1 | grep -o '"[^"]*"' | tr -d '"')
-        local outline
-        outline=$(grep 'outline_variant =' "$HOME/.config/hypr/matugen-colors.lua" | grep -o '"[^"]*"' | tr -d '"')
-        if [[ -n "$primary" ]]; then
-            hyprctl keyword general:col.active_border "$primary" 2>/dev/null || true
-        fi
-        if [[ -n "$outline" ]]; then
-            hyprctl keyword general:col.inactive_border "$outline" 2>/dev/null || true
+reload_hyprland() {
+    hyprctl eval "local c = dofile([=[$THEME_LINK/hyprland.lua]=]); hl.config({ general = { col = { active_border = { colors = c.active_border }, inactive_border = c.inactive_border } } })" \
+        2>/dev/null || true
+}
+
+choose_wallpaper() {
+    local requested="${1:-}"
+    if [[ -n "$requested" && "$requested" != "random" ]]; then
+        [[ -f "$requested" ]] || { echo "Wallpaper not found: $requested" >&2; return 1; }
+        printf '%s\n' "$requested"
+        return
+    fi
+
+    if [[ -z "$requested" && -f "$WALLPAPER_STATE" ]]; then
+        local saved
+        saved="$(<"$WALLPAPER_STATE")"
+        if [[ -f "$saved" ]]; then
+            printf '%s\n' "$saved"
+            return
         fi
     fi
 
-    # Save current wallpaper path
-    echo "$img" > "$STATE_FILE"
+    [[ -d "$WALLPAPER_DIR" ]] || return 1
+    find "$WALLPAPER_DIR" -type f \
+        \( -name '*.jpg' -o -name '*.jpeg' -o -name '*.png' -o -name '*.webp' -o -name '*.gif' \) \
+        | shuf -n 1
 }
 
-pick_random() {
-    if [[ ! -d "$WALLPAPER_DIR" ]]; then
-        echo "Wallpaper directory not found: $WALLPAPER_DIR" >&2
+set_wallpaper() {
+    local img="$1"
+    if ! pgrep -x awww-daemon >/dev/null 2>&1; then
+        awww-daemon &
+        sleep 0.5
+    fi
+
+    awww img "$img" \
+        --transition-type fade \
+        --transition-duration 1 \
+        --transition-fps 60 \
+        --transition-step 2
+    printf '%s\n' "$img" > "$WALLPAPER_STATE"
+}
+
+apply_wallpaper_theme() {
+    local img="$1"
+    mkdir -p "$WALLPAPER_THEME"
+
+    if ! matugen image "$img" --mode "$MATUGEN_MODE" \
+        --config "$CONFIG_HOME/matugen/config.toml" \
+        --source-color-index "$MATUGEN_SOURCE_COLOR_INDEX"; then
+        notify-send -u critical "Theme Error" "Matugen could not generate wallpaper colors" 2>/dev/null || true
         return 1
     fi
 
-    local img
-    img=$(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.webp" -o -name "*.gif" \) | shuf -n 1)
+    activate_theme_dir
+    "$CONFIG_HOME/scripts/theme-adapters.sh"
+    printf '%s\n' wallpaper > "$THEME_STATE"
 
-    if [[ -z "$img" ]]; then
-        echo "No wallpapers found in $WALLPAPER_DIR" >&2
-        return 1
-    fi
-
-    apply_wallpaper "$img"
+    reload_hyprland
+    reload_apps
 }
 
-# Main logic
 case "${1:-}" in
-    random)
-        pick_random
+    --restore)
+        QUIET=true
+        shift
         ;;
-    "")
-        # Restore saved wallpaper, or pick random
-        if [[ -f "$STATE_FILE" ]] && [[ -f "$(cat "$STATE_FILE")" ]]; then
-            apply_wallpaper "$(cat "$STATE_FILE")"
-        elif [[ -d "$WALLPAPER_DIR" ]]; then
-            pick_random
-        fi
-        ;;
-    *)
-        apply_wallpaper "$1"
+    --set-only)
+        GENERATE_THEME=false
+        QUIET=true
+        shift
         ;;
 esac
+
+requested="${1:-}"
+img="$(choose_wallpaper "$requested")" || {
+    [[ -z "$requested" ]] && exit 0
+    exit 1
+}
+
+set_wallpaper "$img"
+if [[ "$GENERATE_THEME" == true ]]; then
+    apply_wallpaper_theme "$img"
+    if [[ "$QUIET" == false ]]; then
+        notify-send "Theme Applied" "Generated colors from $(basename "$img")" 2>/dev/null || true
+    fi
+fi

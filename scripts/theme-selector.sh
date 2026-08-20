@@ -8,7 +8,7 @@ THEME_DIR="${THEME_DIR:-$HOME/.config/themes}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Gather available themes (directory names)
-themes=$(find "$THEME_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort)
+themes=$(find -L "$THEME_DIR" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort)
 
 if [[ -z "$themes" ]]; then
     notify-send -u critical "Theme Selector" "No themes found in $THEME_DIR"
@@ -16,7 +16,7 @@ if [[ -z "$themes" ]]; then
 fi
 
 # Show rofi dmenu
-selected=$(echo "$themes" | rofi -dmenu \
+selected=$(echo "$themes" | "$HOME/.config/rofi/launch.sh" -dmenu \
     -i \
     -p "Select Theme" \
     -theme "$HOME/.config/rofi/theme-selector.rasi"

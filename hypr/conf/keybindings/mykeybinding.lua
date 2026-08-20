@@ -1,6 +1,6 @@
 local terminal = "kitty"
 local fileManager = [[kitty zsh -c "source ~/.zshrc && yazi"]]
-local menu = "rofi -show drun"
+local menu = "~/.config/rofi/launch.sh -show drun"
 local browser = "zen-browser"
 local picture = "feh --fullscreen --borderless --zoom fill --auto-zoom --scale-down --hide-pointer"
 local mainMod = "SUPER"

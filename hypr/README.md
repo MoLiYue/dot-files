@@ -58,7 +58,7 @@ Hyprland ✅
 ```text
 hypr/
 ├── hyprland.lua                     主配置入口
-├── mocha.lua                        Catppuccin Mocha 色板
+├── ../themes/catppuccin-mocha/apps/ 默认 Catppuccin Mocha 应用配色
 ├── hyprtoolkit.conf                 Hyprland Toolkit 的 Catppuccin 配色
 ├── hyprlock.conf                    锁屏界面
 ├── hypridle.conf                    空闲、锁屏、熄屏和挂起规则
@@ -165,24 +165,46 @@ Wlogout 目前没有用户级样式配置，仍是系统默认的深色紫色外
 
 ## 主题与配色
 
-当前配色系统基于 **matugen (Material You)**，从壁纸自动生成主题色：
+所有组件都从统一入口 `~/.config/theme-current/` 读取颜色。默认主题是仓库内
+`themes/catppuccin-mocha/apps/`，其中为每个应用提供独立的颜色适配文件：
 
 ```text
-wallpaper.sh / wallpaper-selector.sh
+themes/catppuccin-mocha/apps/
+├── waybar.css
+├── rofi.rasi
+├── kitty.conf
+├── swaync.css
+└── hyprland.lua
         │
-        ├── awww img (设置壁纸 + 动画过渡)
-        │
-        └── matugen image (生成 Material You 配色)
-                  ↓
-            模板输出：
-            ├── ~/.config/waybar/colors.css
-            ├── ~/.config/rofi/colors.rasi
-            ├── ~/.config/kitty/matugen-colors.conf
-            ├── ~/.config/hypr/matugen-colors.lua
-            └── ~/.config/swaync/colors.css
+        └── ~/.config/theme-current -> 上述目录
 ```
 
-- 换壁纸时自动重新生成所有组件的配色
+选择壁纸主题色时，Matugen 将同样的五种格式生成到
+`~/.cache/mlyue-theme/wallpaper/`，随后原子切换同一个入口：
+
+```text
+wallpaper-selector.sh
+├── awww img
+└── matugen image
+        └── ~/.cache/mlyue-theme/wallpaper/
+                    │
+                    └── ~/.config/theme-current -> 该目录
+```
+
+由于 `~/.config/waybar`、`rofi`、`kitty` 等目录本身也可能是符号链接，配置中
+不能通过 `../theme-current` 寻址：内核会从仓库里的真实目录继续解析 `..`。
+`theme-adapters.sh` 因此为需要相对导入的应用维护同目录、绝对目标的适配链接：
+
+```text
+waybar/colors.css -> 当前主题的 waybar.css
+rofi/colors.rasi  -> 当前主题的 rofi.rasi
+swaync/colors.css -> 当前主题的 swaync.css
+```
+
+- Kitty 和 Hyprland 使用配置目录下的绝对路径读取 `theme-current`
+- Waybar、Rofi 和 SwayNC 只相对导入同目录的运行时适配链接
+- `~/.config/current-theme` 记录固定主题名或 `wallpaper` 模式
+- 登录时先恢复上次主题，再启动 SwayNC 和 Waybar
 - Catppuccin Mocha 作为默认 fallback（无壁纸时）
 - 预设主题仍可通过 `themes/` 目录和主题选择器使用
 - GTK 使用 `catppuccin-mocha-pink-standard+default`

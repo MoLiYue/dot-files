@@ -1,4 +1,4 @@
-@import "colors.css";
+@import url("colors.css");
 * {
     /* reference the color by using @color-name */
     /* color: @text; */
@@ -9,7 +9,7 @@
     font-family: "JetBrains Mono", "Symbols Nerd Font", FontAwesome, sans-serif;
     font-size: 13px;
     border:        none;
-    border-radius: 15;
+    border-radius: 15px;
     box-shadow:    none;
     text-shadow:   none;
     transition-duration: 0s;
@@ -20,32 +20,20 @@ label {
 }
 
 window#waybar {
-    /* background-color: rgba(43, 48, 59, 0.5); */
-    /* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
     color: @text;
-
-    /* you can also GTK3 CSS functions! */
-    /* background-color: transparent; */
     background-color: shade(@base, 0.9);
-    border: 2px solid alpha(@crust, 0.3);
-    transition-property: background-color;
-    transition-duration: .5s;
-
+    border: none;
 }
 
 window#waybar.hidden {
     opacity: 0.2;
 }
 
-window#waybar.empty {
-    background-color: transparent;
-}
-window#waybar.solo {
-    background-color: @base;
-}
-
+window#waybar.empty,
+window#waybar.solo,
 window#waybar.termite {
-    background-color: @surface0;
+    background-color: shade(@base, 0.9);
+    border: none;
 }
 
 /* window#waybar.chromium { */
@@ -54,18 +42,33 @@ window#waybar.termite {
 /* } */
 
 button {
-    /* Use box-shadow instead of border so the text isn't offset */
-    /* box-shadow: inset 0 -3px transparent; */
-    /* Avoid rounded borders under each button name */
-    /* border: none; */
-    border-radius: 15;
-    /* background: @overlay2; */
+    border: none;
+    border-radius: 15px;
+    box-shadow: none;
+    background-color: transparent;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 button:hover {
-    /* background: @overlay1; */
-    /* box-shadow: inset 0 -3px @overlay0; */
+    box-shadow: none;
+}
+
+#taskbar {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+#taskbar button {
+    margin: 5px 3px 6px;
+    padding: 0 5px;
+    background-color: @overlay0;
+    border-radius: 15px;
+}
+
+#taskbar button.active {
+    background-color: @overlay2;
 }
 
 /* you can set a style on hover for any module like this */
@@ -79,7 +82,7 @@ button:hover {
     color: @text;
     margin: 4px 3px;
     border-radius: 15px;
-    border: 0px;
+    border: none;
     /* color: @textcolor3; */
     transition: all 0.3s ease-in-out;
 }
@@ -123,7 +126,7 @@ button:hover {
 #cpu,
 #memory,
 #custom-gpu {
-    margin: 5px 1px 6px 1px;
+    margin: 5px 1px 6px;
     border-radius: 15px;
     color: @base;
 }
@@ -173,7 +176,7 @@ button:hover {
 #workspaces,
 #window,
 #mpd {
-    margin: 5px 1px 6px 1px;
+    margin: 5px 1px 6px;
     border-radius: 15px;
     color: @text;
 }
@@ -202,8 +205,10 @@ button:hover {
     font-weight: bold;
 }
 #workspaces {
-    padding: 0px 1px;
-    border: 0px;
+    padding: 0 1px;
+    background-color: transparent;
+    border: none;
+    border-radius: 15px;
     font-weight: bold;
     font-style: normal;
     color: @text;
@@ -226,7 +231,7 @@ button:hover {
 
 #battery {
     background-color: @base;
-    color: #000000;
+    color: @text;
 }
 
 #battery.charging, #battery.plugged {
@@ -268,7 +273,7 @@ button:hover {
 
 #power-profiles-daemon.power-saver {
     background-color: @teal;
-    color: #000000;
+    color: @base;
 }
 
 label:focus {
@@ -285,7 +290,7 @@ label:focus {
 }
 
 #network.disconnected {
-    background-color: #f53c3c;
+    background-color: @red;
 }
 
 #pulseaudio {
@@ -299,31 +304,31 @@ label:focus {
 }
 
 #wireplumber {
-    background-color: #fff0f5;
-    color: #000000;
+    background-color: @rosewater;
+    color: @base;
 }
 
 #wireplumber.muted {
-    background-color: #f53c3c;
+    background-color: @red;
 }
 
 #custom-media {
-    background-color: #66cc99;
-    color: #2a5c45;
+    background-color: @green;
+    color: @base;
     min-width: 100px;
 }
 
 #custom-media.custom-spotify {
-    background-color: #66cc99;
+    background-color: @green;
 }
 
 #custom-media.custom-vlc {
-    background-color: #ffa000;
+    background-color: @peach;
 }
 
 #temperature {
     background-color: @yellow;
-    color: @base
+    color: @base;
 }
 
 #temperature.critical {
@@ -358,30 +363,31 @@ label:focus {
 }
 
 #mpd.disconnected {
-    background-color: #f53c3c;
+    background-color: @red;
 }
 
 #mpd.stopped {
-    background-color: #90b1b1;
+    background-color: @surface2;
 }
 
 #mpd.paused {
-    background-color: #51a37a;
+    background-color: @green;
 }
 
 #language {
-    background: #00b093;
-    color: #740864;
+    background: @tertiary;
+    color: @on_tertiary;
     padding: 0 5px;
     margin: 0 5px;
     min-width: 16px;
 }
 
 #keyboard-state {
-    background: #97e1ad;
-    color: #000000;
-    padding: 0 0px;
-    margin: 0 5px;
+    background: @secondary;
+    color: @on_secondary;
+    padding: 0;
+    margin: 5px 1px 6px;
+    border-radius: 15px;
     min-width: 16px;
 }
 
@@ -390,15 +396,15 @@ label:focus {
 }
 
 #keyboard-state > label.locked {
-    background: rgba(0, 0, 0, 0.2);
+    background: alpha(@on_secondary, 0.2);
 }
 
 #scratchpad {
-    background: rgba(0, 0, 0, 0.2);
+    background: alpha(@surface0, 0.8);
 }
 
 #scratchpad.empty {
-	background-color: transparent;
+    background-color: transparent;
 }
 
 #privacy {
@@ -407,7 +413,7 @@ label:focus {
 
 #privacy-item {
     padding: 0 5px;
-    color: white;
+    color: @text;
 }
 
 /* #privacy-item.screenshare { */
@@ -424,16 +430,16 @@ label:focus {
 
 #custom-exit {
     background-color: @overlay0;
-    margin: 5px 1px 6px 1px;
-    border-radius: 15;
+    margin: 5px 1px 6px;
+    border-radius: 15px;
     padding: 0 8px;
     color: @text;
 }
 
 #custom-appmenu {
     background-color: @blue;
-    margin: 5px 1px 6px 1px;
-    border-radius: 15;
+    margin: 5px 1px 6px;
+    border-radius: 15px;
     padding: 0 10px;
     color: @base;
     font-size: 15px;

@@ -234,7 +234,7 @@
     // App Menu
     "custom/appmenu": {
         "format": "",
-        "on-click": "rofi -show drun",
+        "on-click": "~/.config/rofi/launch.sh -show drun",
         "tooltip-format": "App Launcher"
     },
 

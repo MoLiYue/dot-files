@@ -26,7 +26,7 @@ display_list=$(echo "$wallpapers" | while read -r f; do basename "$f"; done)
 # Add "Random" option at top
 display_list=$(printf "🎲 Random\n%s" "$display_list")
 
-selected=$(echo "$display_list" | rofi -dmenu \
+selected=$(echo "$display_list" | "$HOME/.config/rofi/launch.sh" -dmenu \
     -i \
     -p "Wallpaper" \
     -theme "$HOME/.config/rofi/theme-selector.rasi"

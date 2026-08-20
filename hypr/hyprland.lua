@@ -1,7 +1,13 @@
 -- Hyprland configuration for 0.56+.
 -- The modules below mirror the previous Hyprlang source layout.
 
-local colors = require("mocha")
+local config_home = os.getenv("XDG_CONFIG_HOME") or (os.getenv("HOME") .. "/.config")
+local active_theme = config_home .. "/theme-current/hyprland.lua"
+local default_theme = config_home .. "/themes/catppuccin-mocha/apps/hyprland.lua"
+local loaded, colors = pcall(dofile, active_theme)
+if not loaded then
+    colors = dofile(default_theme)
+end
 
 require("conf/monitors/monitor")
 require("conf/autostart")
@@ -19,9 +25,9 @@ hl.config({
         border_size = 2,
         col = {
             active_border = {
-                colors = { colors.rosewater, colors.flamingo, colors.red },
+                colors = colors.active_border,
             },
-            inactive_border = "rgba(595959aa)",
+            inactive_border = colors.inactive_border,
         },
         layout = "dwindle",
         allow_tearing = false,

@@ -1,12 +1,7 @@
-/* Rofi theme-selector — minimal dark style */
+/* Rofi theme selector. Colors come from the active desktop theme. */
+@import "colors.rasi"
 
 * {
-    bg:          #101019;
-    bg-alt:      #1b1b2b;
-    fg:          #cdd6f4;
-    fg-dim:      #666677;
-    accent:      #89b4fa;
-
     font:              "JetBrains Mono 12";
     background-color:  transparent;
     text-color:        @fg;
@@ -36,13 +31,13 @@ inputbar {
 }
 
 prompt {
-    text-color: @accent;
+    text-color: @selected;
 }
 
 entry {
     text-color:        @fg;
     placeholder:       "Search themes...";
-    placeholder-color: @fg-dim;
+    placeholder-color: @fg-alt;
 }
 
 listview {
@@ -63,7 +58,7 @@ element normal.normal {
 
 element selected.normal {
     background-color: @bg-alt;
-    text-color:       @accent;
+    text-color:       @selected;
 }
 
 element-text {

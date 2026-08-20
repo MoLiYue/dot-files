@@ -37,6 +37,21 @@ link "$DOTFILES/starship/starship.toml" "$HOME/.config/starship.toml"
 link "$DOTFILES/tmux/tmux.conf"         "$HOME/.config/tmux/tmux.conf"
 link "$DOTFILES/zshrc/.zshrc"           "$HOME/.zshrc"
 
+# Default theme. The link is replaced atomically by apply-theme.sh or
+# wallpaper.sh when another fixed or wallpaper-derived theme is selected.
+THEME_LINK="$HOME/.config/theme-current"
+DEFAULT_THEME="$HOME/.config/themes/catppuccin-mocha/apps"
+if [[ ! -r "$THEME_LINK/waybar.css" ]]; then
+    theme_tmp="${THEME_LINK}.tmp.$$"
+    rm -f -- "$theme_tmp"
+    ln -s -- "$DEFAULT_THEME" "$theme_tmp"
+    mv -fT -- "$theme_tmp" "$THEME_LINK"
+fi
+if [[ ! -s "$HOME/.config/current-theme" ]]; then
+    printf '%s\n' catppuccin-mocha > "$HOME/.config/current-theme"
+fi
+"$HOME/.config/scripts/theme-adapters.sh"
+
 echo "Done."
 
 # install fonts

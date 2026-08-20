@@ -2,31 +2,27 @@
 # https://github.com/InioX/matugen/wiki/Configuration
 
 [config]
-# Reload apps after generating
-reload_apps = true
+# Theme scripts switch the active theme atomically, then reload applications.
+reload_apps = false
 # Set wallpaper via awww (matugen can do this itself)
 set_wallpaper = false
 
-[config.reload_apps_list]
-waybar = true
-kitty = true
-
 [templates.waybar-colors]
 input_path = "~/.config/matugen/templates/waybar-colors.css"
-output_path = "~/.config/waybar/colors.css"
+output_path = "~/.cache/mlyue-theme/wallpaper/waybar.css"
 
 [templates.rofi-colors]
 input_path = "~/.config/matugen/templates/rofi-colors.rasi"
-output_path = "~/.config/rofi/colors.rasi"
+output_path = "~/.cache/mlyue-theme/wallpaper/rofi.rasi"
 
 [templates.kitty-colors]
 input_path = "~/.config/matugen/templates/kitty-colors.conf"
-output_path = "~/.config/kitty/matugen-colors.conf"
+output_path = "~/.cache/mlyue-theme/wallpaper/kitty.conf"
 
 [templates.hyprland-colors]
 input_path = "~/.config/matugen/templates/hyprland-colors.lua"
-output_path = "~/.config/hypr/matugen-colors.lua"
+output_path = "~/.cache/mlyue-theme/wallpaper/hyprland.lua"
 
 [templates.swaync-colors]
 input_path = "~/.config/matugen/templates/swaync-colors.css"
-output_path = "~/.config/swaync/colors.css"
+output_path = "~/.cache/mlyue-theme/wallpaper/swaync.css"

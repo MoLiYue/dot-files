@@ -1,0 +1,44 @@
+/* Catppuccin Mocha — Rofi color roles */
+
+* {
+    primary:                    #89b4fa;
+    on-primary:                 #1e1e2e;
+    primary-container:          #313244;
+    on-primary-container:       #cdd6f4;
+    secondary:                  #b4befe;
+    on-secondary:               #1e1e2e;
+    secondary-container:        #45475a;
+    on-secondary-container:     #cdd6f4;
+    tertiary:                   #94e2d5;
+    on-tertiary:                #1e1e2e;
+    tertiary-container:         #45475a;
+    on-tertiary-container:      #cdd6f4;
+    background:                 #1e1e2e;
+    on-background:              #cdd6f4;
+    surface:                    #1e1e2e;
+    on-surface:                 #cdd6f4;
+    surface-variant:            #45475a;
+    on-surface-variant:         #a6adc8;
+    surface-container-lowest:   #11111b;
+    surface-container-low:      #181825;
+    surface-container:          #313244;
+    surface-container-high:     #45475a;
+    surface-container-highest:  #585b70;
+    outline:                    #6c7086;
+    outline-variant:            #45475a;
+    error:                      #f38ba8;
+    on-error:                   #1e1e2e;
+    error-container:            #eba0ac;
+    on-error-container:         #1e1e2e;
+    inverse-surface:            #cdd6f4;
+    inverse-on-surface:         #1e1e2e;
+    inverse-primary:            #1e1e2e;
+
+    bg:        @background;
+    bg-alt:    @surface-container;
+    fg:        @on-background;
+    fg-alt:    @on-surface-variant;
+    selected:  @primary;
+    active:    @tertiary;
+    urgent:    @error;
+}

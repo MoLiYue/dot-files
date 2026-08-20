@@ -1,45 +1,8 @@
-/* Catppuccin Mocha for Rofi — default fallback colors */
-/* These are overridden by matugen-generated colors.rasi when available */
+/* Rofi layout. Colors come from the active desktop theme. */
+@import "colors.rasi"
 
 * {
-    /* Default palette (Catppuccin Mocha mapped to Material You names) */
-    primary:           #89b4fa;
-    on-primary:        #1e1e2e;
-    secondary:         #b4befe;
-    on-secondary:      #1e1e2e;
-    tertiary:          #94e2d5;
-
-    background:        #1e1e2e;
-    on-background:     #cdd6f4;
-
-    surface:           #1e1e2e;
-    on-surface:        #cdd6f4;
-    surface-variant:   #45475a;
-    on-surface-variant: #a6adc8;
-
-    surface-container:         #313244;
-    surface-container-high:    #45475a;
-    surface-container-highest: #585b70;
-
-    outline:           #585b70;
-    outline-variant:   #45475a;
-
-    error:             #f38ba8;
-    on-error:          #1e1e2e;
-
-    inverse-surface:    #cdd6f4;
-    inverse-on-surface: #1e1e2e;
-    inverse-primary:    #1e1e2e;
-
-    /* Aliases used in elements */
-    bg:        @background;
-    bg-alt:    @surface-container;
-    fg:        @on-background;
-    fg-alt:    @on-surface-variant;
-    selected:  @primary;
-    active:    @tertiary;
-    urgent:    @error;
-
+    font:             "JetBrains Mono 14";
     background-color: transparent;
     text-color:       @fg;
 }
