@@ -46,6 +46,10 @@ hl.config({
         preserve_split = true,
     },
 
+    xwayland = {
+        force_zero_scaling = true,
+    },
+
     misc = {
         force_default_wallpaper = -1,
     },
@@ -68,7 +72,8 @@ hl.device({
 
 -- Toolkit and application defaults. The last QT_QPA_PLATFORMTHEME value
 -- intentionally matches the effective value from the previous config.
-hl.env("GTK_THEME", "Catppuccin-Mocha-Standard-Pink-Dark")
+hl.env("GTK_THEME", "catppuccin-mocha-pink-standard+default")
+hl.env("GDK_SCALE", "2")
 hl.env("QT_STYLE_OVERRIDE", "kvantum")
 hl.env("QT_QPA_PLATFORMTHEME", "qt5ct")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
