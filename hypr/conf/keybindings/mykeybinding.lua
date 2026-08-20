@@ -12,6 +12,13 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("kitty rmpc"))
+
+-- Media keys (MPD via mpc).
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("mpc toggle"))
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("mpc next"))
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("mpc prev"))
+hl.bind("XF86AudioStop", hl.dsp.exec_cmd("mpc stop"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(picture))
 hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("hyprlock"))

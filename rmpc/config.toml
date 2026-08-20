@@ -1,0 +1,32 @@
+# rmpc configuration
+# ~/.config/rmpc/config.toml
+# https://github.com/mierak/rmpc
+
+[address]
+host = "127.0.0.1"
+port = 6600
+
+[theme]
+# Use default theme with Catppuccin Mocha colors
+background_color = "#1e1e2e"
+header_color = "#89b4fa"
+highlighted_item_color = "#cba6f7"
+current_item_color = "#a6e3a1"
+borders_color = "#45475a"
+text_color = "#cdd6f4"
+
+[theme.progress_bar]
+elapsed_color = "#89b4fa"
+thumb_color = "#cdd6f4"
+track_color = "#45475a"
+
+[theme.scrollbar]
+thumb_color = "#89b4fa"
+track_color = "#45475a"
+
+[theme.tab_bar]
+active_color = "#89b4fa"
+inactive_color = "#6c7086"
+
+[keybinds]
+# Default keybinds are vi-like, just list overrides here

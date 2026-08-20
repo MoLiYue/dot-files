@@ -23,6 +23,8 @@ link "$DOTFILES/waybar"     "$HOME/.config/waybar"
 link "$DOTFILES/rofi"       "$HOME/.config/rofi"
 link "$DOTFILES/swaync"     "$HOME/.config/swaync"
 link "$DOTFILES/matugen"    "$HOME/.config/matugen"
+link "$DOTFILES/mpd"        "$HOME/.config/mpd"
+link "$DOTFILES/rmpc"       "$HOME/.config/rmpc"
 link "$DOTFILES/themes"     "$HOME/.config/themes"
 link "$DOTFILES/scripts"    "$HOME/.config/scripts"
 link "$DOTFILES/kitty"      "$HOME/.config/kitty"
@@ -41,4 +43,4 @@ echo "Done."
 # sudo pacman -S ttf-jetbrains-mono-nerd otf-font-awesome ttf-nerd-fonts-symbols
 #
 # install apps
-# sudo pacman -S kitty rofi swaync awww matugen htop s-tui pacmixer wlogout
+# sudo pacman -S kitty rofi swaync awww matugen mpd rmpc htop s-tui pacmixer wlogout

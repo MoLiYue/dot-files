@@ -21,7 +21,7 @@ Hyprland ✅
 │   ├── 中间
 │   │   └── Workspaces ✅             点击切换工作区
 │   └── 右侧
-│       ├── MPD ⚠                    已安装，后台没有运行
+│       ├── MPD ✅                    显示当前播放曲目
 │       ├── 音频 ✅                   点击打开 Kitty + pacmixer
 │       ├── 网络 ✅                   点击打开 Kitty + nmtui
 │       ├── 电源模式 ⚠               power-profiles-daemon 缺失
@@ -85,6 +85,7 @@ Hyprland 启动后由 `conf/autostart.lua` 拉起：
 ```text
 Hyprland
 ├── systemctl --user start hyprpolkitagent.service
+├── systemctl --user start mpd.service
 ├── swaync
 ├── wallpaper.sh (awww-daemon + restore wallpaper)
 ├── fcitx5 -d --replace
@@ -122,7 +123,7 @@ Waybar 不只是状态显示栏，也是当前桌面的快捷控制入口。
 - `custom/media` 依赖 `~/.config/waybar/mediaplayer.py`，但脚本缺失。`playerctl` 已安装，可以作为补回媒体模块时的基础。
 - Bluetooth 模块已有 `blueman-manager` 点击命令，但没有加入右侧模块列表，而且 `blueman-manager` 当前未安装。
 - `pavucontrol` 已安装，但音频模块现在选择打开 `pacmixer`；配置中只保留了注释形式的 `pavucontrol` 命令。
-- MPD 模块已加入 Waybar，`mpd` 软件也已安装，但后台没有运行，所以通常会显示为未连接。
+- MPD 模块已加入 Waybar，`mpd` 后台由 systemd user service 在会话启动时拉起，rmpc 作为 TUI 客户端。
 - 电源模式模块缺少 `power-profiles-daemon`；背光和电池模块引用的硬件在当前设备上不存在。
 
 ### Wlogout
