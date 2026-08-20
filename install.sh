@@ -38,7 +38,7 @@ link "$DOTFILES/zshrc/.zshrc"           "$HOME/.zshrc"
 echo "Done."
 
 # install fonts
-# sudo pacman -S ttf-jetbrains-mono-nerd otf-font-awesome
+# sudo pacman -S ttf-jetbrains-mono-nerd otf-font-awesome ttf-nerd-fonts-symbols
 #
 # install apps
 # sudo pacman -S kitty rofi swaync awww matugen htop s-tui pacmixer wlogout

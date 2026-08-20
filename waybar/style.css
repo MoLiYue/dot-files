@@ -6,13 +6,17 @@
 
     /* `otf-font-awesome` is required to be installed for icons */
     /* font-family: Comic Sans MS, FiraCode Nerd Font, FontAwesome, Roboto, Helvetica, Arial, sans-serif; */
-    font-family: FiraCode Nerd Font, FontAwesome;
+    font-family: "JetBrains Mono", "Symbols Nerd Font", FontAwesome, sans-serif;
     font-size: 13px;
     border:        none;
     border-radius: 15;
     box-shadow:    none;
     text-shadow:   none;
     transition-duration: 0s;
+}
+
+label {
+    font-family: "JetBrains Mono", "Symbols Nerd Font", FontAwesome, sans-serif;
 }
 
 window#waybar {
@@ -424,4 +428,13 @@ label:focus {
     border-radius: 15;
     padding: 0 8px;
     color: @text;
+}
+
+#custom-appmenu {
+    background-color: @blue;
+    margin: 5px 1px 6px 1px;
+    border-radius: 15;
+    padding: 0 10px;
+    color: @base;
+    font-size: 15px;
 }

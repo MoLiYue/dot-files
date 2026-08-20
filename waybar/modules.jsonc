@@ -231,6 +231,13 @@
         "tooltip": false
     },
 
+    // App Menu
+    "custom/appmenu": {
+        "format": "",
+        "on-click": "rofi -show drun",
+        "tooltip-format": "App Launcher"
+    },
+
     // Bluetooth
     "bluetooth": {
         "format-disabled": "",

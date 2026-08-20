@@ -15,7 +15,7 @@ Hyprland ✅
 ├── Waybar ✅                         状态栏 / 软件入口 / 系统控制
 │   ├── 左侧
 │   │   ├── Media ⚠                  mediaplayer.py 缺失
-│   │   ├── App Menu ⚠               模块未定义，暂时不能点击启动 Rofi
+│   │   ├── App Menu ✅               点击启动 Rofi
 │   │   ├── Taskbar ✅                左键聚焦窗口，中键关闭窗口
 │   │   └── 当前窗口标题 ✅
 │   ├── 中间
@@ -194,8 +194,7 @@ wallpaper.sh / wallpaper-selector.sh
 按影响排序：
 
 1. 安装并启用 `xdg-desktop-portal-hyprland`，恢复原生 Wayland 屏幕共享。
-2. 给 `custom/appmenu` 增加定义，让 Waybar 可以点击启动 Rofi。
-3. 恢复 `mediaplayer.py`，或改成直接基于 `playerctl` 的媒体模块。
-4. 为 Wlogout 添加 Catppuccin 用户级布局和样式。
-5. 安装并启用 Hypridle；如果继续使用现有亮度规则，还需要安装 `brightnessctl`。
-6. 根据这台设备的实际硬件清理 Waybar 的电池、背光和电源模式模块。
+2. 恢复 `mediaplayer.py`，或改成直接基于 `playerctl` 的媒体模块。
+3. 为 Wlogout 添加 Catppuccin 用户级布局和样式。
+4. 安装并启用 Hypridle；如果继续使用现有亮度规则，还需要安装 `brightnessctl`。
+5. 根据这台设备的实际硬件清理 Waybar 的电池、背光和电源模式模块。
