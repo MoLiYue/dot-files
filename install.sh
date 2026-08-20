@@ -3,7 +3,10 @@
 # Hyprland WM
 ln -s $PWD/waybar ~/.config/waybar
 ln -s $PWD/hypr ~/.config/hypr
-ln -s $PWD/wofi ~/.config/wofi
+ln -s $PWD/rofi ~/.config/rofi
+ln -s $PWD/swaync ~/.config/swaync
+ln -s $PWD/themes ~/.config/themes
+ln -s $PWD/scripts ~/.config/scripts
 
 ln -s $PWD/fastfetch ~/.config/fastfetch
 
@@ -18,4 +21,4 @@ ln -s $PWD/nvim ~/.config/nvim
 # yay -S
 #
 # install apps
-# yay -S kitty wofi htop s-tui pacmixer wlogout
+# yay -S kitty rofi htop s-tui pacmixer wlogout

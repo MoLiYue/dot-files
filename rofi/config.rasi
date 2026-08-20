@@ -1,0 +1,15 @@
+configuration {
+    show-icons:        true;
+    icon-theme:        "Papirus-Dark";
+    display-drun:      " ";
+    display-window:    " ";
+    display-run:       " ";
+    drun-display-format: "{name}";
+    font:              "JetBrains Mono 14";
+    matching:          "fuzzy";
+    sort:              true;
+    sorting-method:    "fzf";
+    terminal:          "kitty";
+}
+
+@theme "catppuccin-mocha"

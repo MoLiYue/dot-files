@@ -1,0 +1,72 @@
+/* Rofi theme-selector — minimal dark style */
+
+* {
+    bg:          #101019;
+    bg-alt:      #1b1b2b;
+    fg:          #cdd6f4;
+    fg-dim:      #666677;
+    accent:      #89b4fa;
+
+    font:              "JetBrains Mono 12";
+    background-color:  transparent;
+    text-color:        @fg;
+}
+
+window {
+    width:            320px;
+    background-color: @bg;
+    border:           1px solid;
+    border-color:     @bg-alt;
+    border-radius:    12px;
+    padding:          12px;
+}
+
+mainbox {
+    spacing: 10px;
+}
+
+inputbar {
+    padding:          8px 10px;
+    spacing:          6px;
+    background-color: transparent;
+    border:           2px solid;
+    border-color:     @bg-alt;
+    border-radius:    10px;
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    text-color: @accent;
+}
+
+entry {
+    text-color:        @fg;
+    placeholder:       "Search themes...";
+    placeholder-color: @fg-dim;
+}
+
+listview {
+    lines:     9;
+    spacing:   2px;
+    scrollbar: false;
+}
+
+element {
+    padding:       7px 10px;
+    border-radius: 6px;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color:       @fg;
+}
+
+element selected.normal {
+    background-color: @bg-alt;
+    text-color:       @accent;
+}
+
+element-text {
+    background-color: inherit;
+    text-color:       inherit;
+}

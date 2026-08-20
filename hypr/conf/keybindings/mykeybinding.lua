@@ -1,18 +1,23 @@
 local terminal = "kitty"
 local fileManager = [[kitty zsh -c "source ~/.zshrc && yazi"]]
-local menu = "wofi --show drun --allow-images"
+local menu = "rofi -show drun"
 local browser = "zen-browser"
 local picture = "feh --fullscreen --borderless --zoom fill --auto-zoom --scale-down --hide-pointer"
 local mainMod = "SUPER"
 
-hl.bind(mainMod .. " + M", hl.dsp.exit())
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(
+    "command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"
+))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(picture))
-hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
+hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("hyprlock"))
+
+-- Theme selector.
+hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("~/.config/scripts/theme-selector.sh"))
 
 -- Move focus with mainMod + arrow keys.
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))

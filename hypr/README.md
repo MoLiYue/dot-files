@@ -15,7 +15,7 @@ Hyprland ✅
 ├── Waybar ✅                         状态栏 / 软件入口 / 系统控制
 │   ├── 左侧
 │   │   ├── Media ⚠                  mediaplayer.py 缺失
-│   │   ├── App Menu ⚠               模块未定义，暂时不能点击启动 Wofi
+│   │   ├── App Menu ⚠               模块未定义，暂时不能点击启动 Rofi
 │   │   ├── Taskbar ✅                左键聚焦窗口，中键关闭窗口
 │   │   └── 当前窗口标题 ✅
 │   ├── 中间
@@ -37,11 +37,11 @@ Hyprland ✅
 │       ├── 电源按钮 ✅               点击打开 wlogout
 │       ├── 时钟 ✅
 │       └── Tray ✅                   后台程序提供的动态入口
-├── Wofi ✅                           应用启动器，Super + R
-├── 通知守护进程 ❌                  swaync / mako / dunst 均未启用
+├── Rofi ✅                           应用启动器，Super + R
+├── SwayNC ✅                         通知守护进程 + 通知中心
 ├── 壁纸守护进程 ❌                  hyprpaper / swww / mpvpaper 均未启用
 ├── Hypridle ⚠                       有配置，但程序和服务未启用
-├── Hyprlock ✅                       锁屏，Super + L
+├── Hyprlock ✅                       锁屏，Super + Shift + L
 ├── Hyprpolkitagent ✅                图形密码授权窗口，只运行一个代理
 ├── Grim + Slurp + Satty ✅           区域截图与标注
 ├── Wlogout ✅                        会话和电源菜单
@@ -85,6 +85,7 @@ Hyprland 启动后由 `conf/autostart.lua` 拉起：
 ```text
 Hyprland
 ├── systemctl --user start hyprpolkitagent.service
+├── swaync
 ├── fcitx5 -d --replace
 ├── fcitx5-remote -r
 ├── xdg-desktop-portal-hyprland.sh
@@ -116,7 +117,7 @@ Waybar 不只是状态显示栏，也是当前桌面的快捷控制入口。
 
 ### Waybar 当前未生效的入口
 
-- `custom/appmenu` 已经放在左侧模块列表中，但 `modules.jsonc` 没有对应定义，所以当前不会显示，也不能点击启动 Wofi。键盘入口 `Super + R` 仍然正常。
+- `custom/appmenu` 已经放在左侧模块列表中，但 `modules.jsonc` 没有对应定义，所以当前不会显示，也不能点击启动 Rofi。键盘入口 `Super + R` 仍然正常。
 - `custom/media` 依赖 `~/.config/waybar/mediaplayer.py`，但脚本缺失。`playerctl` 已安装，可以作为补回媒体模块时的基础。
 - Bluetooth 模块已有 `blueman-manager` 点击命令，但没有加入右侧模块列表，而且 `blueman-manager` 当前未安装。
 - `pavucontrol` 已安装，但音频模块现在选择打开 `pacmixer`；配置中只保留了注释形式的 `pavucontrol` 命令。
@@ -144,10 +145,11 @@ Wlogout 目前没有用户级样式配置，仍是系统默认的深色紫色外
 | 快捷键 | 功能 |
 | --- | --- |
 | `Super + Return` | 打开 Kitty |
-| `Super + R` | 打开 Wofi 应用启动器 |
+| `Super + R` | 打开 Rofi 应用启动器 |
 | `Super + E` | 在 Kitty 中打开 Yazi |
 | `Super + B` | 打开 Zen Browser |
-| `Super + L` | 启动 Hyprlock |
+| `Super + Shift + L` | 启动 Hyprlock |
+| `Super + Shift + T` | 打开主题选择器 |
 | `Super + Q` | 关闭窗口 |
 | `Super + V` | 切换浮动窗口 |
 | `Super + 1..0` | 切换工作区 |
@@ -173,10 +175,9 @@ Wlogout 目前没有用户级样式配置，仍是系统默认的深色紫色外
 按影响排序：
 
 1. 安装并启用 `xdg-desktop-portal-hyprland`，恢复原生 Wayland 屏幕共享。
-2. 给 `custom/appmenu` 增加定义，让 Waybar 可以点击启动 Wofi。
+2. 给 `custom/appmenu` 增加定义，让 Waybar 可以点击启动 Rofi。
 3. 恢复 `mediaplayer.py`，或改成直接基于 `playerctl` 的媒体模块。
 4. 为 Wlogout 添加 Catppuccin 用户级布局和样式。
 5. 安装并启用 Hypridle；如果继续使用现有亮度规则，还需要安装 `brightnessctl`。
 6. 根据这台设备的实际硬件清理 Waybar 的电池、背光和电源模式模块。
-7. 选择并配置一个通知守护进程，例如 SwayNC 或 Mako。
-8. 选择是否安装壁纸守护进程；当前由 Hyprland 显示默认壁纸。
+7. 选择是否安装壁纸守护进程；当前由 Hyprland 显示默认壁纸。

@@ -1,0 +1,143 @@
+/* Catppuccin Mocha for Rofi */
+
+* {
+    /* Palette */
+    rosewater: #f5e0dc;
+    flamingo:  #f2cdcd;
+    pink:      #f5c2e7;
+    mauve:     #cba6f7;
+    red:       #f38ba8;
+    maroon:    #eba0ac;
+    peach:     #fab387;
+    yellow:    #f9e2af;
+    green:     #a6e3a1;
+    teal:      #94e2d5;
+    sky:       #89dceb;
+    sapphire:  #74c7ec;
+    blue:      #89b4fa;
+    lavender:  #b4befe;
+    text:      #cdd6f4;
+    subtext1:  #bac2de;
+    subtext0:  #a6adc8;
+    overlay2:  #9399b2;
+    overlay1:  #7f849c;
+    overlay0:  #6c7086;
+    surface2:  #585b70;
+    surface1:  #45475a;
+    surface0:  #313244;
+    base:      #1e1e2e;
+    mantle:    #181825;
+    crust:     #11111b;
+
+    /* Semantic colors */
+    bg:        @base;
+    bg-alt:    @surface0;
+    fg:        @text;
+    fg-alt:    @subtext0;
+    selected:  @blue;
+    active:    @green;
+    urgent:    @red;
+
+    background-color: transparent;
+    text-color:       @fg;
+}
+
+window {
+    width:            600px;
+    border-radius:    16px;
+    border:           2px solid;
+    border-color:     @selected;
+    background-color: @bg;
+    padding:          0;
+}
+
+mainbox {
+    padding:  12px;
+    spacing:  12px;
+}
+
+inputbar {
+    padding:          10px 16px;
+    border-radius:    12px;
+    background-color: @bg-alt;
+    spacing:          8px;
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    background-color: inherit;
+    text-color:       @selected;
+}
+
+entry {
+    background-color: inherit;
+    placeholder:      "Search...";
+    placeholder-color: @fg-alt;
+}
+
+listbox {
+    spacing: 4px;
+}
+
+listview {
+    lines:    10;
+    columns:  1;
+    fixed-height: true;
+    spacing:  4px;
+    scrollbar: false;
+}
+
+element {
+    padding:       8px 12px;
+    border-radius: 10px;
+    spacing:       8px;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color:       @fg;
+}
+
+element selected.normal {
+    background-color: @selected;
+    text-color:       @base;
+}
+
+element normal.active {
+    text-color: @active;
+}
+
+element selected.active {
+    background-color: @active;
+    text-color:       @base;
+}
+
+element normal.urgent {
+    text-color: @urgent;
+}
+
+element selected.urgent {
+    background-color: @urgent;
+    text-color:       @base;
+}
+
+element-icon {
+    size:             24px;
+    background-color: inherit;
+}
+
+element-text {
+    background-color: inherit;
+    text-color:       inherit;
+    vertical-align:   0.5;
+}
+
+message {
+    padding:          8px 12px;
+    border-radius:    10px;
+    background-color: @bg-alt;
+}
+
+textbox {
+    background-color: inherit;
+}
