@@ -39,7 +39,7 @@ Hyprland ✅
 │       └── Tray ✅                   后台程序提供的动态入口
 ├── Rofi ✅                           应用启动器，Super + R
 ├── SwayNC ✅                         通知守护进程 + 通知中心
-├── 壁纸守护进程 ❌                  hyprpaper / swww / mpvpaper 均未启用
+├── awww ✅                           壁纸守护进程，支持动画过渡
 ├── Hypridle ⚠                       有配置，但程序和服务未启用
 ├── Hyprlock ✅                       锁屏，Super + Shift + L
 ├── Hyprpolkitagent ✅                图形密码授权窗口，只运行一个代理
@@ -86,6 +86,7 @@ Hyprland 启动后由 `conf/autostart.lua` 拉起：
 Hyprland
 ├── systemctl --user start hyprpolkitagent.service
 ├── swaync
+├── wallpaper.sh (awww-daemon + restore wallpaper)
 ├── fcitx5 -d --replace
 ├── fcitx5-remote -r
 ├── xdg-desktop-portal-hyprland.sh
@@ -150,6 +151,7 @@ Wlogout 目前没有用户级样式配置，仍是系统默认的深色紫色外
 | `Super + B` | 打开 Zen Browser |
 | `Super + Shift + L` | 启动 Hyprlock |
 | `Super + Shift + T` | 打开主题选择器 |
+| `Super + Shift + W` | 打开壁纸选择器 |
 | `Super + Q` | 关闭窗口 |
 | `Super + V` | 切换浮动窗口 |
 | `Super + 1..0` | 切换工作区 |
@@ -160,15 +162,32 @@ Wlogout 目前没有用户级样式配置，仍是系统默认的深色紫色外
 | `Shift + F1` | 使用 Hyprshot 截取区域 |
 | `Super + Shift + S` | 使用 Grim、Slurp 和 Satty 截图并标注 |
 
-## 主题与 KDE 共存
+## 主题与配色
 
-当前主题方向是 Catppuccin Mocha：
+当前配色系统基于 **matugen (Material You)**，从壁纸自动生成主题色：
 
-- Hyprland 边框、Hyprlock 和 Hyprland Toolkit 使用 Catppuccin 色值。
-- GTK 使用 `catppuccin-mocha-pink-standard+default`。
-- Qt 使用 Kvantum，并由 `qt6ct` 选择平台主题。
-- KDE 的安装不会自动让 Hyprland 会话继承 Plasma 的 GTK/Qt 外观设置；Hyprland 会话仍以这里声明的环境变量、GTK 配置和 Qt/Kvantum 配置为准。
-- Wlogout 还未统一成 Catppuccin，是当前最明显的主题缺口之一。
+```text
+wallpaper.sh / wallpaper-selector.sh
+        │
+        ├── awww img (设置壁纸 + 动画过渡)
+        │
+        └── matugen image (生成 Material You 配色)
+                  ↓
+            模板输出：
+            ├── ~/.config/waybar/colors.css
+            ├── ~/.config/rofi/colors.rasi
+            ├── ~/.config/kitty/matugen-colors.conf
+            ├── ~/.config/hypr/matugen-colors.lua
+            └── ~/.config/swaync/colors.css
+```
+
+- 换壁纸时自动重新生成所有组件的配色
+- Catppuccin Mocha 作为默认 fallback（无壁纸时）
+- 预设主题仍可通过 `themes/` 目录和主题选择器使用
+- GTK 使用 `catppuccin-mocha-pink-standard+default`
+- Qt 使用 Kvantum，并由 `qt6ct` 选择平台主题
+- KDE 的安装不会自动让 Hyprland 会话继承 Plasma 的 GTK/Qt 外观设置
+- Wlogout 还未统一配色，是当前最明显的主题缺口之一
 
 ## 当前待完善项
 
@@ -180,4 +199,3 @@ Wlogout 目前没有用户级样式配置，仍是系统默认的深色紫色外
 4. 为 Wlogout 添加 Catppuccin 用户级布局和样式。
 5. 安装并启用 Hypridle；如果继续使用现有亮度规则，还需要安装 `brightnessctl`。
 6. 根据这台设备的实际硬件清理 Waybar 的电池、背光和电源模式模块。
-7. 选择是否安装壁纸守护进程；当前由 Hyprland 显示默认壁纸。

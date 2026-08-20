@@ -1,4 +1,4 @@
-@import "mocha.css";
+@import "colors.css";
 * {
     /* reference the color by using @color-name */
     /* color: @text; */

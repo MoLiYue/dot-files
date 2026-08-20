@@ -1,30 +1,27 @@
-/* Catppuccin Mocha palette */
-@define-color rosewater #f5e0dc;
-@define-color flamingo #f2cdcd;
-@define-color pink #f5c2e7;
-@define-color mauve #cba6f7;
-@define-color red #f38ba8;
-@define-color maroon #eba0ac;
-@define-color peach #fab387;
-@define-color yellow #f9e2af;
-@define-color green #a6e3a1;
-@define-color teal #94e2d5;
-@define-color sky #89dceb;
-@define-color sapphire #74c7ec;
-@define-color blue #89b4fa;
-@define-color lavender #b4befe;
-@define-color text #cdd6f4;
-@define-color subtext1 #bac2de;
-@define-color subtext0 #a6adc8;
-@define-color overlay2 #9399b2;
-@define-color overlay1 #7f849c;
-@define-color overlay0 #6c7086;
-@define-color surface2 #585b70;
-@define-color surface1 #45475a;
-@define-color surface0 #313244;
-@define-color base #1e1e2e;
-@define-color mantle #181825;
-@define-color crust #11111b;
+/* Default Catppuccin Mocha fallback — overridden by matugen-generated colors.css */
+@import url("colors.css");
+
+/* Fallback values if colors.css doesn't exist yet */
+@define-color primary #89b4fa;
+@define-color on_primary #1e1e2e;
+@define-color primary_container #313244;
+@define-color secondary #b4befe;
+@define-color tertiary #94e2d5;
+@define-color background #1e1e2e;
+@define-color on_background #cdd6f4;
+@define-color surface #1e1e2e;
+@define-color on_surface #cdd6f4;
+@define-color surface_variant #45475a;
+@define-color on_surface_variant #a6adc8;
+@define-color surface_container #313244;
+@define-color surface_container_high #45475a;
+@define-color surface_container_highest #585b70;
+@define-color outline #585b70;
+@define-color outline_variant #45475a;
+@define-color error #f38ba8;
+@define-color on_error #1e1e2e;
+@define-color error_container #f38ba8;
+@define-color inverse_surface #cdd6f4;
 
 /* ---------- Global ---------- */
 
@@ -42,26 +39,26 @@
 
 .notification-row:focus,
 .notification-row:hover {
-    background: @surface0;
+    background: @surface_container;
 }
 
 .notification {
     border-radius: 12px;
     margin: 6px 12px;
-    box-shadow: 0 0 0 1px @surface1;
+    box-shadow: 0 0 0 1px @outline_variant;
     padding: 0;
     transition: all 200ms ease;
 }
 
 .notification-content {
-    background: @base;
+    background: @background;
     padding: 10px;
     border-radius: 12px;
 }
 
 .close-button {
-    background: @surface1;
-    color: @text;
+    background: @surface_container_high;
+    color: @on_surface;
     text-shadow: none;
     padding: 0;
     border-radius: 100%;
@@ -75,7 +72,8 @@
 
 .close-button:hover {
     box-shadow: none;
-    background: @red;
+    background: @error;
+    color: @on_error;
     transition: all 200ms ease;
     border: none;
 }
@@ -85,14 +83,14 @@
     padding: 4px;
     margin: 0;
     box-shadow: none;
-    background: @base;
-    border: 1px solid @surface1;
-    color: @text;
+    background: @background;
+    border: 1px solid @outline_variant;
+    color: @on_background;
 }
 
 .notification-default-action:hover,
 .notification-action:hover {
-    background: @surface0;
+    background: @surface_container;
 }
 
 .notification-default-action {
@@ -107,16 +105,16 @@
 /* ---------- Urgency levels ---------- */
 
 .low {
-    border-left: 4px solid @blue;
+    border-left: 4px solid @primary;
 }
 
 .normal {
-    border-left: 4px solid @lavender;
+    border-left: 4px solid @secondary;
 }
 
 .critical {
-    border-left: 4px solid @red;
-    box-shadow: 0 0 4px @red;
+    border-left: 4px solid @error;
+    box-shadow: 0 0 4px @error;
 }
 
 /* ---------- Notification labels ---------- */
@@ -124,24 +122,24 @@
 .summary {
     font-size: 16px;
     font-weight: bold;
-    color: @text;
+    color: @on_background;
 }
 
 .time {
     font-size: 12px;
-    color: @subtext0;
+    color: @on_surface_variant;
     margin-right: 18px;
 }
 
 .body {
     font-size: 14px;
     font-weight: normal;
-    color: @subtext1;
+    color: @on_surface;
 }
 
 .body-image {
     margin-top: 6px;
-    background-color: @text;
+    background-color: @on_background;
     border-radius: 8px;
 }
 
@@ -152,18 +150,18 @@
 .notification-group-headers {
     font-weight: bold;
     font-size: 14px;
-    color: @text;
+    color: @on_background;
     margin: 8px;
 }
 
 .notification-group-icon {
-    color: @lavender;
+    color: @primary;
 }
 
 .notification-group-collapse-button,
 .notification-group-close-all-button {
-    background: @surface0;
-    color: @text;
+    background: @surface_container;
+    color: @on_surface;
     margin: 4px;
     padding: 4px 8px;
     border-radius: 8px;
@@ -172,16 +170,16 @@
 
 .notification-group-collapse-button:hover,
 .notification-group-close-all-button:hover {
-    background: @surface1;
+    background: @surface_container_high;
 }
 
 /* ---------- Control center ---------- */
 
 .control-center {
-    background: alpha(@base, 0.9);
-    border: 1px solid @surface1;
+    background: alpha(@background, 0.9);
+    border: 1px solid @outline_variant;
     border-radius: 16px;
-    box-shadow: 0 4px 16px alpha(@crust, 0.6);
+    box-shadow: 0 4px 16px alpha(@background, 0.6);
     margin: 8px;
     padding: 12px;
 }
@@ -197,16 +195,16 @@
 /* ---------- Widgets ---------- */
 
 .widget-title {
-    color: @text;
+    color: @on_background;
     font-size: 18px;
     margin: 8px;
 }
 
 .widget-title > button {
     font-size: 13px;
-    color: @base;
+    color: @on_primary;
     text-shadow: none;
-    background: @mauve;
+    background: @primary;
     box-shadow: none;
     border-radius: 8px;
     padding: 4px 12px;
@@ -214,44 +212,44 @@
 }
 
 .widget-title > button:hover {
-    background: @pink;
+    background: @primary_container;
 }
 
 .widget-dnd {
     margin: 8px;
     font-size: 14px;
-    color: @text;
+    color: @on_background;
 }
 
 .widget-dnd > switch {
     font-size: 14px;
     border-radius: 8px;
-    background: @surface0;
-    border: 1px solid @surface1;
+    background: @surface_container;
+    border: 1px solid @outline_variant;
     box-shadow: none;
 }
 
 .widget-dnd > switch:checked {
-    background: @mauve;
-    border: 1px solid @mauve;
+    background: @primary;
+    border: 1px solid @primary;
 }
 
 .widget-dnd > switch slider {
-    background: @text;
+    background: @on_primary;
     border-radius: 50%;
 }
 
 .widget-inhibitors {
     margin: 8px;
     font-size: 14px;
-    color: @text;
+    color: @on_background;
 }
 
 .widget-inhibitors > button {
     font-size: 13px;
-    color: @base;
+    color: @on_primary;
     text-shadow: none;
-    background: @peach;
+    background: @tertiary;
     box-shadow: none;
     border-radius: 8px;
     padding: 4px 12px;
@@ -259,7 +257,7 @@
 }
 
 .widget-inhibitors > button:hover {
-    background: @yellow;
+    background: @secondary;
 }
 
 /* ---------- Blank window behind control center ---------- */
@@ -275,5 +273,5 @@
 }
 
 .floating-notifications .notification {
-    box-shadow: 0 2px 8px alpha(@crust, 0.5);
+    box-shadow: 0 2px 8px alpha(@background, 0.5);
 }

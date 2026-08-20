@@ -1,6 +1,7 @@
 hl.on("hyprland.start", function()
     hl.exec_cmd("systemctl --user start hyprpolkitagent.service")
     hl.exec_cmd("swaync")
+    hl.exec_cmd("~/.config/scripts/wallpaper.sh")
     hl.exec_cmd("fcitx5 -d --replace")
     hl.exec_cmd("fcitx5-remote -r")
     hl.exec_cmd("~/.config/hypr/xdg-desktop-portal-hyprland.sh")

@@ -19,6 +19,9 @@ hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("hyprlock"))
 -- Theme selector.
 hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("~/.config/scripts/theme-selector.sh"))
 
+-- Wallpaper selector.
+hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("~/.config/scripts/wallpaper-selector.sh"))
+
 -- Move focus with mainMod + arrow keys.
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))

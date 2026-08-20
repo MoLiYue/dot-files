@@ -5,6 +5,7 @@ ln -s $PWD/waybar ~/.config/waybar
 ln -s $PWD/hypr ~/.config/hypr
 ln -s $PWD/rofi ~/.config/rofi
 ln -s $PWD/swaync ~/.config/swaync
+ln -s $PWD/matugen ~/.config/matugen
 ln -s $PWD/themes ~/.config/themes
 ln -s $PWD/scripts ~/.config/scripts
 
@@ -21,4 +22,4 @@ ln -s $PWD/nvim ~/.config/nvim
 # yay -S
 #
 # install apps
-# yay -S kitty rofi htop s-tui pacmixer wlogout
+# yay -S kitty rofi swaync awww matugen htop s-tui pacmixer wlogout

@@ -1,42 +1,44 @@
-/* Catppuccin Mocha for Rofi */
+/* Catppuccin Mocha for Rofi — default fallback colors */
+/* These are overridden by matugen-generated colors.rasi when available */
 
 * {
-    /* Palette */
-    rosewater: #f5e0dc;
-    flamingo:  #f2cdcd;
-    pink:      #f5c2e7;
-    mauve:     #cba6f7;
-    red:       #f38ba8;
-    maroon:    #eba0ac;
-    peach:     #fab387;
-    yellow:    #f9e2af;
-    green:     #a6e3a1;
-    teal:      #94e2d5;
-    sky:       #89dceb;
-    sapphire:  #74c7ec;
-    blue:      #89b4fa;
-    lavender:  #b4befe;
-    text:      #cdd6f4;
-    subtext1:  #bac2de;
-    subtext0:  #a6adc8;
-    overlay2:  #9399b2;
-    overlay1:  #7f849c;
-    overlay0:  #6c7086;
-    surface2:  #585b70;
-    surface1:  #45475a;
-    surface0:  #313244;
-    base:      #1e1e2e;
-    mantle:    #181825;
-    crust:     #11111b;
+    /* Default palette (Catppuccin Mocha mapped to Material You names) */
+    primary:           #89b4fa;
+    on-primary:        #1e1e2e;
+    secondary:         #b4befe;
+    on-secondary:      #1e1e2e;
+    tertiary:          #94e2d5;
 
-    /* Semantic colors */
-    bg:        @base;
-    bg-alt:    @surface0;
-    fg:        @text;
-    fg-alt:    @subtext0;
-    selected:  @blue;
-    active:    @green;
-    urgent:    @red;
+    background:        #1e1e2e;
+    on-background:     #cdd6f4;
+
+    surface:           #1e1e2e;
+    on-surface:        #cdd6f4;
+    surface-variant:   #45475a;
+    on-surface-variant: #a6adc8;
+
+    surface-container:         #313244;
+    surface-container-high:    #45475a;
+    surface-container-highest: #585b70;
+
+    outline:           #585b70;
+    outline-variant:   #45475a;
+
+    error:             #f38ba8;
+    on-error:          #1e1e2e;
+
+    inverse-surface:    #cdd6f4;
+    inverse-on-surface: #1e1e2e;
+    inverse-primary:    #1e1e2e;
+
+    /* Aliases used in elements */
+    bg:        @background;
+    bg-alt:    @surface-container;
+    fg:        @on-background;
+    fg-alt:    @on-surface-variant;
+    selected:  @primary;
+    active:    @tertiary;
+    urgent:    @error;
 
     background-color: transparent;
     text-color:       @fg;
@@ -100,7 +102,7 @@ element normal.normal {
 
 element selected.normal {
     background-color: @selected;
-    text-color:       @base;
+    text-color:       @on-primary;
 }
 
 element normal.active {
@@ -109,7 +111,7 @@ element normal.active {
 
 element selected.active {
     background-color: @active;
-    text-color:       @base;
+    text-color:       @on-primary;
 }
 
 element normal.urgent {
@@ -118,7 +120,7 @@ element normal.urgent {
 
 element selected.urgent {
     background-color: @urgent;
-    text-color:       @base;
+    text-color:       @on-error;
 }
 
 element-icon {
