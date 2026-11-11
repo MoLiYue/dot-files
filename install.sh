@@ -36,6 +36,7 @@ link "$DOTFILES/nvim"       "$HOME/.config/nvim"
 link "$DOTFILES/starship/starship.toml" "$HOME/.config/starship.toml"
 link "$DOTFILES/tmux/tmux.conf"         "$HOME/.config/tmux/tmux.conf"
 link "$DOTFILES/zshrc/.zshrc"           "$HOME/.zshrc"
+link "$DOTFILES/vim/.vimrc"             "$HOME/.vimrc"
 
 # Default theme. The link is replaced atomically by apply-theme.sh or
 # wallpaper.sh when another fixed or wallpaper-derived theme is selected.
